@@ -203,15 +203,13 @@ different contexts.
 
 .. class:: Context(dict_=None, autoescape=True, use_l10n=None, use_tz=None)
 
-    The constructor of ``django.template.Context`` takes four optional
+    The constructor of :class:`django.template.Context` takes four optional
     arguments:
 
     * ``dict_`` is a dictionary that maps variable names to variable values.
-    * ``autoescape`` controls whether HTML autoescaping is enabled. It defaults
-      to ``True``. If the ``django.template.Engine`` object has an
-      ``autoescape`` value that conflicts or contradicts with the
-      value, whatever value is set by ``django.template.Context`` will take
-      precendence over ``django.template.Engine``.
+    * ``autoescape`` controls whether HTML autoescaping is enabled.
+
+      It defaults to ``True``.
 
       .. warning::
 
@@ -220,7 +218,8 @@ different contexts.
     * ``use_l10n`` controls whether blocks will be localized by default.
     * ``use_tz`` controls whether dates are converted to the
       local time zone when rendered in a template. When set to ``True``
-      it forces all dates to be rendered using the local timezone.
+      it forces all dates to be rendered using the local timezone. This takes
+      precedence over :setting:`USE_TZ` and will override it when set to ``True`` or ``False``.
 
     For details, see :ref:`playing-with-context` below.
 
