@@ -201,10 +201,18 @@ Once you have a compiled :class:`Template` object, you can render a context
 with it. You can reuse the same template to render it several times with
 different contexts.
 
-.. class:: Context(dict_=None)
+.. class:: Context(dict_=None, autoescape=True, use_l10n=None, use_tz=None)
 
-    The constructor of ``django.template.Context`` takes an optional argument —
-    a dictionary mapping variable names to variable values.
+    The constructor of ``django.template.Context`` takes four optional
+    arguments:
+    * ``dict_`` is a dictionary that contains all the variables that will be
+      used while rendering the template.
+    * ``autoescape`` controls whether HTML autoescaping is enabled. By default it is set to ``True``.
+      If the engine
+    * ``use_l10n`` ...
+    * ``use_tz`` controls whether dates are converted to the
+      local time zone when rendered in a template. When set to ``True``
+      it forces all dates to be rendered using the local timezone.
 
     For details, see :ref:`playing-with-context` below.
 
