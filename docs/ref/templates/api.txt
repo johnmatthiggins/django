@@ -215,9 +215,10 @@ different contexts.
 
           Only set it to ``False`` if you're rendering non-HTML templates!
 
-    * ``use_l10n`` controls whether blocks will be localized by default.
+    * ``use_l10n`` controls whether blocks will be localized by default. If
+      set to ``True`` numbers and dates will be formatted based on locale.
     * ``use_tz`` controls whether dates are converted to the
-      local time zone when rendered in a template. When set to ``True``
+      local time when rendered in a template. When set to ``True``
       it forces all dates to be rendered using the local timezone. This takes
       precedence over :setting:`USE_TZ` and will override it when set to ``True`` or ``False``.
 
