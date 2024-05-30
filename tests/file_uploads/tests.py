@@ -942,6 +942,20 @@ class MultiParserTests(SimpleTestCase):
         )
         self.assertEqual(multipart_parser._content_length, 0)
 
+    def test_chunk_encoded_body(self):
+        multipart_parser = MultiPartParser(
+            {
+                "CONTENT_TYPE": "multipart/form-data; boundary=--abcdef",
+            },
+            StringIO(
+                '--abcdef\r\nContent-Type: text/plain; name="hello_file"; filename="hello.txt"\r\nHello world!\r\n--abcdef--\r\n'
+            ),
+            [],
+            "utf-8",
+        )
+        # this should not be this way...
+        self.assertEqual(multipart_parser._content_length, 0)
+
     def test_sanitize_file_name(self):
         parser = MultiPartParser(
             {
