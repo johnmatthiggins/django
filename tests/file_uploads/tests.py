@@ -946,6 +946,7 @@ class MultiParserTests(SimpleTestCase):
         multipart_parser = MultiPartParser(
             {
                 "CONTENT_TYPE": "multipart/form-data; boundary=--abcdef",
+                "TRANSFER_ENCODING": "chunked",
             },
             StringIO(
                 '--abcdef\r\nContent-Type: text/plain; name="hello_file"; filename="hello.txt"\r\nHello world!\r\n--abcdef--\r\n'
