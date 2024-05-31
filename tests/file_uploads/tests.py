@@ -943,19 +943,31 @@ class MultiParserTests(SimpleTestCase):
         self.assertEqual(multipart_parser._content_length, 0)
 
     def test_chunk_encoded_body(self):
+        body = b'\r\n'.join([
+            b'--foo',
+            b'Content-Disposition: form-data; name="hello"',
+            b'',
+            b'Hello!',
+            b'--foo',
+            b'Content-Disposition: form-data; name="goodbye"',
+            b'',
+            b'Goodbye!',
+            b'--foo--',
+        ])
         multipart_parser = MultiPartParser(
             {
-                "CONTENT_TYPE": "multipart/form-data; boundary=--abcdef",
-                "TRANSFER_ENCODING": "chunked",
+                "CONTENT_TYPE": "multipart/form-data; boundary=foo",
+                "HTTP_TRANSFER_ENCODING": "chunked",
             },
-            StringIO(
-                '--abcdef\r\nContent-Type: text/plain; name="hello_file"; filename="hello.txt"\r\nHello world!\r\n--abcdef--\r\n'
-            ),
+            BytesIO(body),
             [],
             "utf-8",
         )
-        # this should not be this way...
-        self.assertEqual(multipart_parser._content_length, 0)
+        POST, FILES = multipart_parser.parse()
+
+        self.assertEqual(POST['hello'], 'Hello!')
+        self.assertEqual(POST['goodbye'], 'Goodbye!')
+        self.assertEqual(len(list(FILES.values())), 0)
 
     def test_sanitize_file_name(self):
         parser = MultiPartParser(
