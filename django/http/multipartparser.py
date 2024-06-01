@@ -145,8 +145,8 @@ class MultiPartParser:
         # HTTP spec says that Content-Length >= 0 is valid
         # handling content-length == 0 before continuing
         if (
-                self._content_length == 0
-                and self._meta.get('HTTP_TRANSFER_ENCODING').lower() != 'chunked'
+            self._content_length == 0
+            and self._meta.get("HTTP_TRANSFER_ENCODING").lower() != "chunked"
         ):
             return QueryDict(encoding=self._encoding), MultiValueDict()
 
